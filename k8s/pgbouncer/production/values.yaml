@@ -1,0 +1,56 @@
+## PGBouncer Settings
+# helm install pgbouncer ./../template -n production -f values.yaml
+config:
+  adminUser: admin
+  adminPassword: secretpassword
+  databases: 
+    production:
+      host: 127.0.0.1
+      port: 5433
+  pgbouncer: 
+    auth_type: md5
+    pool_mode: transaction
+    max_client_conn: 1024
+    default_pool_size: 15
+    max_db_connections: 15
+    listen_port: 5432
+    ignore_startup_parameters: extra_float_digits
+
+replicaCount: 1
+updateStrategy:
+  type: RollingUpdate
+
+minReadySeconds: 0
+revisionHistoryLimit: 3
+imagePullSecrets: []
+
+image:
+  registry: ""
+  repository: pgbouncer/pgbouncer
+  tag: 1.15.0
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 5432
+
+pgbouncerExporter:
+  enabled: false
+
+serviceAccount:
+  name: cloudsql-production
+  annotations: {}
+  create: false
+
+extraContainers:
+- name: cloud-sql-proxy
+  image: gcr.io/cloudsql-docker/gce-proxy:1.17
+  command:
+    - "/cloud_sql_proxy"
+    - "-ip_address_types=PRIVATE"
+    - "-instances=example-project:asia-southeast2:example-db-instance=tcp:5433"
+  securityContext:
+    runAsNonRoot: true
+
+podAnnotations:
+  sidecar.istio.io/inject: "false"
