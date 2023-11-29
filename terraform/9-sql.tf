@@ -67,7 +67,6 @@ resource "google_service_account_iam_binding" "cloudsql_workload_identity" {
   role = "roles/iam.workloadIdentityUser"
 
   members = [
-    "serviceAccount:pmrms-362603.svc.id.goog[staging/cloudsql-staging]",
     "serviceAccount:pmrms-362603.svc.id.goog[production/cloudsql-production]",
   ]
 }

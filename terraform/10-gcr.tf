@@ -35,22 +35,3 @@ resource "kubernetes_secret" "gcr-secret-production" {
     })
   }
 }
-
-resource "kubernetes_secret" "gcr-secret-staging" {
-  metadata {
-    name = "gcr-secret"
-    namespace = kubernetes_namespace.staging.id
-  }
-
-  type = "kubernetes.io/dockerconfigjson"
-
-  data = {
-    ".dockerconfigjson" = jsonencode({
-      auths = {
-          gcr.io: {
-            auth: "_json_key: ${base64decode(google_service_account_key.gcr-sa-key.private_key)}"
-        }
-      }
-    })
-  }
-}
