@@ -6,7 +6,7 @@ provider "google" {
 
 provider "kubernetes" {
   config_path    = "~/.kube/config"
-  config_context = "gke_${var.project_id}_${var.region}-a_cluster"
+  config_context = "gke_${var.project_id}_${var.zone}_cluster"
 }
 
 # https://terraform.io/language/settings/backends/gcs

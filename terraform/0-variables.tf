@@ -10,6 +10,12 @@ variable "region" {
   default = "asia-southeast2"
 }
 
+variable "zone" {
+  description = "Zone of project"
+  type = string
+  default = "asia-southeast2-a"
+}
+
 variable "cloudsql_username" {
   description = "Username for db"
   type = string
