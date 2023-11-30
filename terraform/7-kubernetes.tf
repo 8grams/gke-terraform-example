@@ -1,7 +1,7 @@
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster
 resource "google_container_cluster" "example-cluster" {
   name = var.cluster_name
-  location = "${var.region}-a"
+  location = "${var.zone}"
   remove_default_node_pool = true
   initial_node_count = 1
   network = google_compute_network.main.self_link

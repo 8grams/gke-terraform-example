@@ -7,7 +7,7 @@ resource "google_service_account" "kubernetes" {
 resource "google_container_node_pool" "example-node-pool" {
   name = var.node_pool_name
   cluster = google_container_cluster.example-cluster.id
-  node_count = 8
+  node_count = 2
 
   management {
     auto_repair = true

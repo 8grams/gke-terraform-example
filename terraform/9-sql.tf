@@ -27,7 +27,7 @@ resource "google_sql_database_instance" "example-db-instance" {
   depends_on = [google_service_networking_connection.cloudsql_private_vpc_connection]
 
   settings {
-    tier = "db-custom-2-7680"
+    tier = "db-custom-2-4096"
     availability_type = "ZONAL"
     disk_autoresize = true
     disk_size = 10
@@ -48,7 +48,7 @@ resource "google_sql_database_instance" "example-db-instance" {
     }
 
     location_preference {
-      zone = "${var.region}-a"
+      zone = "${var.zone}"
     }
   }
 
